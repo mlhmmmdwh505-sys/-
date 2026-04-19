@@ -79,3 +79,49 @@ window.onload = function() {
     };
     document.getElementById('dateDisplay').innerText = new Date().toLocaleDateString('ar-EG', { weekday: 'long', day: 'numeric', month: 'long' });
 };
+// 1. قاموس الترجمة
+const translations = {
+    ar: {
+        title: "لوحة تحكم الجراح",
+        welcome: "مرحباً بك في مهمتك القادمة",
+        startBtn: "ابدأ العملية",
+        dir: "rtl"
+    },
+    en: {
+        title: "Surgeon Dashboard",
+        welcome: "Welcome to your next mission",
+        startBtn: "Start Operation",
+        dir: "ltr"
+    },
+    es: {
+        title: "Panel del Cirujano",
+        welcome: "Bienvenido a tu próxima misión",
+        startBtn: "Iniciar Operación",
+        dir: "ltr"
+    },
+    hi: {
+        title: "सर्जन डैशबोर्ड",
+        welcome: "आपकी अगली प्रेषण में आपका स्वागत है",
+        startBtn: "ऑपरेशन शुरू करें",
+        dir: "ltr"
+    }
+};
+
+// 2. تفعيل التغيير
+const langSelect = document.getElementById('langSelect');
+
+langSelect.addEventListener('change', (e) => {
+    const selectedLang = e.target.value;
+    const content = translations[selectedLang];
+
+    // تحديث كل العناصر التي تحمل كلاس lang-text
+    document.querySelectorAll('.lang-text').forEach(element => {
+        const key = element.getAttribute('data-key');
+        if (content[key]) {
+            element.innerText = content[key];
+        }
+    });
+
+    // تغيير اتجاه الصفحة
+    document.body.dir = content.dir;
+});
