@@ -176,3 +176,24 @@ button.lang-text:hover {
     .timer-display { font-size: 4.5rem; }
     .main-dashboard { width: 95%; padding: 25px; }
 }
+/* تحسين شكل حقل الإدخال */
+input {
+  background-color: #1a1f26; /* أفتح قليلاً من الخلفية */
+  border: 1px solid #3f444d;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 12px;
+}
+
+/* تحسين شكل الزر */
+button {
+  background-color: #007bff; /* لون مميز كالأزرق الطبي */
+  color: white;
+  font-weight: bold;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
