@@ -79,41 +79,16 @@ window.onload = function() {
     };
     document.getElementById('dateDisplay').innerText = new Date().toLocaleDateString('ar-EG', { weekday: 'long', day: 'numeric', month: 'long' });
 };
-const translations = {
-    ar: {
-        title: "لوحة تحكم الجراح",
-        dream: "حلم التخرج",
-        dir: "rtl"
-    },
-    en: {
-        title: "Surgeon Dashboard",
-        dream: "Graduation Dream",
-        dir: "ltr"
-    }
-};
-
+// دالة تغيير اللغة
 function changeLang(lang) {
-    console.log("تم اختيار لغة: " + lang); // للتأكد في المتصفح أن الزر يعمل
+    alert("تم الضغط على زر اللغة: " + lang); // هذا التنبيه سيؤكد لنا أن الزر يعمل
     
-    const content = translations[lang];
-
-    // تغيير النصوص
-    document.querySelectorAll('.lang-text').forEach(el => {
-        const key = el.getAttribute('data-key');
-        if (content[key]) {
-            el.innerText = content[key];
-        }
-    });
-
-    // تغيير اتجاه الصفحة
-    document.body.dir = content.dir;
-    
-    // حفظ اللغة في المتصفح
-    localStorage.setItem('selectedLang', lang);
+    if (lang === 'en') {
+        document.body.dir = "ltr";
+        // ابحث عن العنوان وغيره يدوياً للتجربة
+        document.querySelector('h1').innerText = "Surgeon Dashboard";
+    } else {
+        document.body.dir = "rtl";
+        document.querySelector('h1').innerText = "لوحة تحكم الجراح";
+    }
 }
-
-// تشغيل اللغة المحفوظة عند فتح الصفحة
-document.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('selectedLang') || 'ar';
-    changeLang(savedLang);
-});
