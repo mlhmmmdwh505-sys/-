@@ -1,4 +1,3 @@
-// قاموس الترجمة الشامل للوحة التحكم
 const translations = {
     ar: {
         title: "لوحة تحكم الجراح",
@@ -28,37 +27,28 @@ const translations = {
     }
 };
 
-// الدالة المسؤولة عن التغيير الفوري
 function changeLang(lang) {
     const content = translations[lang];
 
-    // 1. تغيير اتجاه الصفحة بالكامل
+    // 1. تغيير الاتجاه
     document.body.dir = content.dir;
 
-    // 2. تغيير كل النصوص التي تحمل الكلاس lang-text
+    // 2. تغيير النصوص
     document.querySelectorAll('.lang-text').forEach(el => {
         const key = el.getAttribute('data-key');
-        if (content[key]) {
-            el.innerText = content[key];
-        }
+        if (content[key]) el.innerText = content[key];
     });
 
-    // 3. تغيير نص التلميح داخل مربع الكتابة (Placeholder)
-    const taskInput = document.querySelector('.task-input');
-    if (taskInput) {
-        taskInput.placeholder = content.inputPlaceholder;
-    }
-
-    // 4. حفظ اختيارك في ذاكرة المتصفح
-    localStorage.setItem('preferredLang', lang);
-}
-
-// كود تشغيل اللغة المحفوظة تلقائياً عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('preferredLang') || 'ar';
-    changeLang(savedLang);
-});
-    // تغيير الـ Placeholder لمربع الكتابة
-    const input = document.querySelector('.task-input');
+    // 3. تغيير الـ Placeholder
+    const input = document.getElementById('taskInput');
     if (input) input.placeholder = content.inputPlaceholder;
+
+    // 4. حفظ اللغة
+    localStorage.setItem('savedLang', lang);
 }
+
+// تشغيل عند التحميل
+document.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem('savedLang') || 'ar';
+    changeLang(saved);
+});
