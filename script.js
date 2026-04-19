@@ -125,3 +125,41 @@ langSelect.addEventListener('change', (e) => {
     // تغيير اتجاه الصفحة
     document.body.dir = content.dir;
 });
+const translations = {
+    ar: {
+        title: "لوحة تحكم الجراح",
+        dream: "⌛ حلم التخرج",
+        store: "☕ متجر الطاقة (1د = 15ن)",
+        startTask: "ابدأ المهمة",
+        reset: "إعادة ضبط",
+        addJob: "أضف مهمة طبية جديدة...",
+        confirm: "تأكيد",
+        dir: "rtl"
+    },
+    en: {
+        title: "Surgeon Dashboard",
+        dream: "⌛ Graduation Dream",
+        store: "☕ Energy Store (1m = 15p)",
+        startTask: "Start Task",
+        reset: "Reset",
+        addJob: "Add new medical task...",
+        confirm: "Confirm",
+        dir: "ltr"
+    }
+};
+
+function changeLang(lang) {
+    const content = translations[lang];
+    
+    // تغيير النصوص التي تحمل الكلاس lang-text
+    document.querySelectorAll('.lang-text').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (content[key]) el.innerText = content[key];
+    });
+
+    // تغيير الـ Placeholder لمربع الإدخال (Task Input)
+    const input = document.querySelector('.task-input'); 
+    if(input) input.placeholder = content.addJob;
+
+    document.body.dir = content.dir;
+}
