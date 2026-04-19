@@ -7,7 +7,47 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="main-dashboard">
+    <div class="lang-wrapper">
+        <button class="lang-btn" onclick="changeLang('en')">EN</button>
+        <button class="lang-btn" onclick="changeLang('ar')">AR</button>
+    </div>
 
+    <h1 class="lang-text" data-key="title">لوحة تحكم الجراح</h1>
+
+    <div class="grid-container">
+        <div class="right-column">
+            <div class="timer-card">
+                <div id="timer" class="timer-display">25:00</div>
+                <div class="button-row">
+                    <button class="lang-text btn-main" data-key="startBtn">ابدأ المهمة</button>
+                    <button class="lang-text btn-sec" data-key="resetBtn">إعادة ضبط</button>
+                </div>
+            </div>
+            
+            <div class="dream-card">
+                <h2 class="lang-text" data-key="dream">⌛ حلم التخرج</h2>
+                <div class="numbers">10 سنة 71 يوم 08 ساعة</div>
+            </div>
+        </div>
+
+        <div class="left-column">
+            <div class="store-card">
+                <h3 class="lang-text" data-key="store">☕ متجر الطاقة (1د = 15ن)</h3>
+                <div class="store-btns">
+                    <button class="lang-text" data-key="btn5">5 د لـ 75ن</button>
+                    <button class="lang-text" data-key="btn10">10 د لـ 150ن</button>
+                    <button class="lang-text" data-key="btn15">15 د لـ 225ن</button>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <input type="text" class="task-input" id="taskInput" placeholder="أضف مهمة طبية جديدة...">
+                <button class="lang-text btn-confirm" data-key="confirmBtn">تأكيد</button>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="main-dashboard">
         <div class="lang-wrapper">
             <button class="lang-btn" onclick="changeLang('en')">English</button>
