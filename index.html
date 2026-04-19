@@ -9,6 +9,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="language-controls">
+    <label for="langSelect">Choose Language / اختر اللغة:</label>
+    <select id="langSelect">
+        <option value="ar">العربية</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+        <option value="hi">हिन्दी</option>
+    </select>
+</div>
+
+<h1 class="lang-text" data-key="title">لوحة تحكم الجراح</h1>
+<p class="lang-text" data-key="welcome">مرحباً بك في مهمتك القادمة</p>
+<button class="lang-text" data-key="startBtn">ابدأ</button>
     <div class="glass-card">
         <div class="mini-score">
             <span>💰 <span id="userPoints">0</span></span>
@@ -46,9 +59,9 @@
                 <section class="info-card store-card">
                     <h3>☕ متجر الطاقة (1د = 15ن)</h3>
                     <div class="store-grid">
-                        <div class="item" onclick="buyBreak(5)">5 دق <small>75ن</small></div>
-                        <div class="item" onclick="buyBreak(10)">10 دق <small>150ن</small></div>
-                        <div class="item" onclick="buyBreak(15)">15 دق <small>225ن</small></div>
+                        <div class="item" onclick="buyBreak(5)">5 د <small>75ن</small></div>
+                        <div class="item" onclick="buyBreak(10)">10 د <small>150ن</small></div>
+                        <div class="item" onclick="buyBreak(15)">15 د <small>225ن</small></div>
                     </div>
                 </section>
             </aside>
