@@ -29,26 +29,13 @@ const translations = {
 
 function changeLang(lang) {
     const content = translations[lang];
-
-    // 1. تغيير الاتجاه
     document.body.dir = content.dir;
 
-    // 2. تغيير النصوص
     document.querySelectorAll('.lang-text').forEach(el => {
         const key = el.getAttribute('data-key');
         if (content[key]) el.innerText = content[key];
     });
 
-    // 3. تغيير الـ Placeholder
     const input = document.getElementById('taskInput');
     if (input) input.placeholder = content.inputPlaceholder;
-
-    // 4. حفظ اللغة
-    localStorage.setItem('savedLang', lang);
 }
-
-// تشغيل عند التحميل
-document.addEventListener('DOMContentLoaded', () => {
-    const saved = localStorage.getItem('savedLang') || 'ar';
-    changeLang(saved);
-});
