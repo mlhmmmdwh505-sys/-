@@ -1,55 +1,193 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" id="app-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surgeon Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <title>منظم المهام الطبية</title>
+    <style>
+        :root {
+            --bg-body: #0d1117;
+            --bg-card: #161b22;
+            --text-main: #ffffff;
+            --accent: #238636;
+            --border: #30363d;
+        }
+
+        .light-mode {
+            --bg-body: #f0f2f5;
+            --bg-card: #ffffff;
+            --text-main: #1c1e21;
+            --accent: #007bff;
+            --border: #ddd;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .controls button {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 5px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            background: var(--bg-body);
+            color: var(--text-main);
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus { border-color: var(--accent); }
+
+        .add-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .task-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .task-item {
+            background: var(--bg-body);
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeIn 0.4s ease forwards;
+            border-right: 4px solid var(--accent);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .task-text.completed {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        .delete-btn {
+            background: #da3633;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="main-dashboard">
-        <div class="lang-wrapper">
-            <button class="lang-btn" onclick="changeLang('en')">EN</button>
-            <button class="lang-btn" onclick="changeLang('ar')">AR</button>
-        </div>
-
-        <h1 class="lang-text" data-key="title">لوحة تحكم الجراح</h1>
-
-        <div class="grid-container">
-            <div class="col-right">
-                <div class="card timer-card">
-                    <div id="timer" class="timer-display">25:00</div>
-                    <div class="btn-row">
-                        <button class="lang-text btn-start" data-key="startBtn">ابدأ المهمة</button>
-                        <button class="lang-text btn-reset" data-key="resetBtn">إعادة ضبط</button>
-                    </div>
-                </div>
-                
-                <div class="card dream-card">
-                    <h2 class="lang-text" data-key="dream">⌛ حلم التخرج</h2>
-                    <div class="countdown">10 سنة 71 يوم 08 ساعة</div>
-                </div>
-            </div>
-
-            <div class="col-left">
-                <div class="card store-card">
-                    <h3 class="lang-text" data-key="store">☕ متجر الطاقة (1د = 15ن)</h3>
-                    <div class="store-btns">
-                        <button class="lang-text" data-key="btn5">5 د لـ 75ن</button>
-                        <button class="lang-text" data-key="btn10">10 د لـ 150ن</button>
-                        <button class="lang-text" data-key="btn15">15 د لـ 225ن</button>
-                    </div>
-                </div>
-
-                <div class="card input-card">
-                    <input type="text" class="task-input" id="taskInput" placeholder="أضف مهمة طبية جديدة...">
-                    <button class="lang-text btn-confirm" data-key="confirmBtn">تأكيد</button>
-                </div>
-            </div>
+<div class="app-container">
+    <div class="header">
+        <h2 id="title">المهام الطبية</h2>
+        <div class="controls">
+            <button onclick="toggleTheme()">🌓</button>
+            <button onclick="toggleLang()" id="lang-btn">EN</button>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="input-group">
+        <input type="text" id="taskInput" placeholder="أضف مهمة جديدة...">
+        <button class="add-btn" onclick="addTask()" id="add-btn">إضافة</button>
+    </div>
+
+    <ul class="task-list" id="taskList">
+        </ul>
+</div>
+
+<script>
+    let isArabic = true;
+
+    function toggleTheme() {
+        document.body.classList.toggle('light-mode');
+    }
+
+    function toggleLang() {
+        const root = document.getElementById('app-root');
+        isArabic = !isArabic;
+        
+        root.dir = isArabic ? 'rtl' : 'ltr';
+        root.lang = isArabic ? 'ar' : 'en';
+        
+        document.getElementById('title').innerText = isArabic ? 'المهام الطبية' : 'Medical Tasks';
+        document.getElementById('taskInput').placeholder = isArabic ? 'أضف مهمة جديدة...' : 'Add new task...';
+        document.getElementById('add-btn').innerText = isArabic ? 'إضافة' : 'Add';
+        document.getElementById('lang-btn').innerText = isArabic ? 'EN' : 'AR';
+    }
+
+    function addTask() {
+        const input = document.getElementById('taskInput');
+        const text = input.value.trim();
+        if (text === "") return;
+
+        const li = document.createElement('li');
+        li.className = 'task-item';
+        li.innerHTML = `
+            <span class="task-text" onclick="this.classList.toggle('completed')">${text}</span>
+            <button class="delete-btn" onclick="this.parentElement.remove()">${isArabic ? 'حذف' : 'Delete'}</button>
+        `;
+
+        document.getElementById('taskList').appendChild(li);
+        input.value = "";
+    }
+
+    // السماح بالإضافة عند الضغط على Enter
+    document.getElementById('taskInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') addTask();
+    });
+</script>
+
 </body>
 </html>
