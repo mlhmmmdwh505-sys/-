@@ -107,3 +107,27 @@ li { background: rgba(255,255,255,0.03); padding: 12px 20px; border-radius: 15px
 /* لضمان تغيير الخطوط بناءً على اللغة */
 [dir="rtl"] { font-family: 'Cairo', sans-serif; }
 [dir="ltr"] { font-family: 'Arial', sans-serif; }
+.lang-container {
+    position: absolute;
+    top: 20px;
+    right: 20px; /* ستكون فوق بجانب التاريخ */
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+}
+
+.btn-lang {
+    background: rgba(255, 255, 255, 0.1); /* شفافية لدمجها مع الخلفية */
+    color: #9facff;
+    border: 1px solid #4a5dff;
+    padding: 5px 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: 0.3s;
+}
+
+.btn-lang:hover {
+    background: #4a5dff;
+    color: white;
+}
