@@ -1,192 +1,224 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" id="app-root">
+<html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منظم المهام الطبية</title>
-    <style>
-        :root {
-            --bg-body: #0d1117;
-            --bg-card: #161b22;
-            --text-main: #ffffff;
-            --accent: #238636;
-            --border: #30363d;
-        }
+<meta charset="UTF-8">
+<title>لوحة تحكم الجراح</title>
 
-        .light-mode {
-            --bg-body: #f0f2f5;
-            --bg-card: #ffffff;
-            --text-main: #1c1e21;
-            --accent: #007bff;
-            --border: #ddd;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Cairo", sans-serif;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            padding-top: 50px;
-            transition: all 0.3s ease;
-        }
+body {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    direction: rtl;
+}
 
-        .app-container {
-            width: 100%;
-            max-width: 450px;
-            background: var(--bg-card);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border: 1px solid var(--border);
-        }
+.container {
+    padding: 30px;
+}
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
 
-        .controls button {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            padding: 5px 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
-            margin-left: 5px;
-        }
+.top-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
 
-        .input-group {
-            position: relative;
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+input, button {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
 
-        input {
-            flex: 1;
-            padding: 12px 15px;
-            border-radius: 10px;
-            border: 2px solid var(--border);
-            background: var(--bg-body);
-            color: var(--text-main);
-            outline: none;
-            transition: 0.3s;
-        }
+button {
+    background: #6366f1;
+    color: white;
+    cursor: pointer;
+}
 
-        input:focus { border-color: var(--accent); }
+button:hover {
+    background: #4f46e5;
+}
 
-        .add-btn {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 0 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
 
-        .task-list {
-            list-style: none;
-            padding: 0;
-        }
+.card {
+    background: rgba(255,255,255,0.05);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
 
-        .task-item {
-            background: var(--bg-body);
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            animation: fadeIn 0.4s ease forwards;
-            border-right: 4px solid var(--accent);
-        }
+.timer {
+    font-size: 60px;
+    text-align: center;
+    color: #6366f1;
+    margin: 20px 0;
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+.actions {
+    text-align: center;
+}
 
-        .task-text.completed {
-            text-decoration: line-through;
-            opacity: 0.5;
-        }
+.actions button {
+    margin: 5px;
+}
 
-        .delete-btn {
-            background: #da3633;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-    </style>
+.small-boxes {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.box {
+    background: rgba(255,255,255,0.05);
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.energy {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.energy div {
+    flex: 1;
+    background: #0f172a;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+</style>
+
 </head>
+
 <body>
 
-<div class="app-container">
-    <div class="header">
-        <h2 id="title">المهام الطبية</h2>
-        <div class="controls">
-            <button onclick="toggleTheme()">🌓</button>
-            <button onclick="toggleLang()" id="lang-btn">EN</button>
+<div class="container">
+
+<h1>🩺 لوحة تحكم الجراح</h1>
+
+<div class="top-controls">
+    <input type="number" id="minutes" value="25">
+    <input type="color" id="color" value="#6366f1">
+    <button onclick="applySettings()">تأكيد</button>
+</div>
+
+<div class="grid">
+
+    <!-- Timer -->
+    <div class="card">
+        <div class="timer" id="timer">25:00</div>
+        <div class="actions">
+            <button onclick="startTimer()">ابدأ المهمة</button>
+            <button onclick="resetTimer()">إعادة ضبط</button>
         </div>
     </div>
 
-    <div class="input-group">
-        <input type="text" id="taskInput" placeholder="أضف مهمة جديدة...">
-        <button class="add-btn" onclick="addTask()" id="add-btn">إضافة</button>
+    <!-- Graduation -->
+    <div class="card">
+        <h3>🎓 حلم التخرج</h3>
+        <div class="small-boxes">
+            <div class="box">
+                <h2 id="years">0</h2>
+                <p>سنة</p>
+            </div>
+            <div class="box">
+                <h2 id="days">0</h2>
+                <p>يوم</p>
+            </div>
+            <div class="box">
+                <h2 id="hours">0</h2>
+                <p>ساعة</p>
+            </div>
+        </div>
+
+        <div class="energy">
+            <div>5 دق = 75⚡</div>
+            <div>10 دق = 150⚡</div>
+            <div>15 دق = 225⚡</div>
+        </div>
     </div>
 
-    <ul class="task-list" id="taskList">
-        </ul>
+</div>
+
 </div>
 
 <script>
-    let isArabic = true;
+let time = 1500;
+let interval;
 
-    function toggleTheme() {
-        document.body.classList.toggle('light-mode');
-    }
+function updateTimer() {
+    let m = Math.floor(time / 60);
+    let s = time % 60;
+    document.getElementById("timer").innerText =
+        `${m}:${s < 10 ? "0" : ""}${s}`;
+}
 
-    function toggleLang() {
-        const root = document.getElementById('app-root');
-        isArabic = !isArabic;
-        
-        root.dir = isArabic ? 'rtl' : 'ltr';
-        root.lang = isArabic ? 'ar' : 'en';
-        
-        document.getElementById('title').innerText = isArabic ? 'المهام الطبية' : 'Medical Tasks';
-        document.getElementById('taskInput').placeholder = isArabic ? 'أضف مهمة جديدة...' : 'Add new task...';
-        document.getElementById('add-btn').innerText = isArabic ? 'إضافة' : 'Add';
-        document.getElementById('lang-btn').innerText = isArabic ? 'EN' : 'AR';
-    }
+function startTimer() {
+    if (interval) return;
 
-    function addTask() {
-        const input = document.getElementById('taskInput');
-        const text = input.value.trim();
-        if (text === "") return;
+    interval = setInterval(() => {
+        if (time > 0) {
+            time--;
+            updateTimer();
+        } else {
+            clearInterval(interval);
+            alert("خلص الوقت 🔥");
+        }
+    }, 1000);
+}
 
-        const li = document.createElement('li');
-        li.className = 'task-item';
-        li.innerHTML = `
-            <span class="task-text" onclick="this.classList.toggle('completed')">${text}</span>
-            <button class="delete-btn" onclick="this.parentElement.remove()">${isArabic ? 'حذف' : 'Delete'}</button>
-        `;
+function resetTimer() {
+    clearInterval(interval);
+    interval = null;
+    time = parseInt(document.getElementById("minutes").value) * 60;
+    updateTimer();
+}
 
-        document.getElementById('taskList').appendChild(li);
-        input.value = "";
-    }
+function applySettings() {
+    let min = document.getElementById("minutes").value;
+    let color = document.getElementById("color").value;
 
-    // السماح بالإضافة عند الضغط على Enter
-    document.getElementById('taskInput').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') addTask();
-    });
+    time = min * 60;
+    document.querySelector(".timer").style.color = color;
+    updateTimer();
+}
+
+// حساب التخرج (مثال: 2036)
+let target = new Date("2036-01-01");
+
+function updateCountdown() {
+    let now = new Date();
+    let diff = target - now;
+
+    let years = Math.floor(diff / (1000*60*60*24*365));
+    let days = Math.floor(diff / (1000*60*60*24)) % 365;
+    let hours = Math.floor(diff / (1000*60*60)) % 24;
+
+    document.getElementById("years").innerText = years;
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = hours;
+}
+
+setInterval(updateCountdown, 1000);
+updateTimer();
 </script>
 
 </body>
