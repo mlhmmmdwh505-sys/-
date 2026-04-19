@@ -79,87 +79,41 @@ window.onload = function() {
     };
     document.getElementById('dateDisplay').innerText = new Date().toLocaleDateString('ar-EG', { weekday: 'long', day: 'numeric', month: 'long' });
 };
-// 1. قاموس الترجمة
 const translations = {
     ar: {
         title: "لوحة تحكم الجراح",
-        welcome: "مرحباً بك في مهمتك القادمة",
-        startBtn: "ابدأ العملية",
+        dream: "حلم التخرج",
         dir: "rtl"
     },
     en: {
         title: "Surgeon Dashboard",
-        welcome: "Welcome to your next mission",
-        startBtn: "Start Operation",
-        dir: "ltr"
-    },
-    es: {
-        title: "Panel del Cirujano",
-        welcome: "Bienvenido a tu próxima misión",
-        startBtn: "Iniciar Operación",
-        dir: "ltr"
-    },
-    hi: {
-        title: "सर्जन डैशबोर्ड",
-        welcome: "आपकी अगली प्रेषण में आपका स्वागत है",
-        startBtn: "ऑपरेशन शुरू करें",
-        dir: "ltr"
-    }
-};
-
-// 2. تفعيل التغيير
-const langSelect = document.getElementById('langSelect');
-
-langSelect.addEventListener('change', (e) => {
-    const selectedLang = e.target.value;
-    const content = translations[selectedLang];
-
-    // تحديث كل العناصر التي تحمل كلاس lang-text
-    document.querySelectorAll('.lang-text').forEach(element => {
-        const key = element.getAttribute('data-key');
-        if (content[key]) {
-            element.innerText = content[key];
-        }
-    });
-
-    // تغيير اتجاه الصفحة
-    document.body.dir = content.dir;
-});
-const translations = {
-    ar: {
-        title: "لوحة تحكم الجراح",
-        dream: "⌛ حلم التخرج",
-        store: "☕ متجر الطاقة (1د = 15ن)",
-        startTask: "ابدأ المهمة",
-        reset: "إعادة ضبط",
-        addJob: "أضف مهمة طبية جديدة...",
-        confirm: "تأكيد",
-        dir: "rtl"
-    },
-    en: {
-        title: "Surgeon Dashboard",
-        dream: "⌛ Graduation Dream",
-        store: "☕ Energy Store (1m = 15p)",
-        startTask: "Start Task",
-        reset: "Reset",
-        addJob: "Add new medical task...",
-        confirm: "Confirm",
+        dream: "Graduation Dream",
         dir: "ltr"
     }
 };
 
 function changeLang(lang) {
-    const content = translations[lang];
+    console.log("تم اختيار لغة: " + lang); // للتأكد في المتصفح أن الزر يعمل
     
-    // تغيير النصوص التي تحمل الكلاس lang-text
+    const content = translations[lang];
+
+    // تغيير النصوص
     document.querySelectorAll('.lang-text').forEach(el => {
         const key = el.getAttribute('data-key');
-        if (content[key]) el.innerText = content[key];
+        if (content[key]) {
+            el.innerText = content[key];
+        }
     });
 
-    // تغيير الـ Placeholder لمربع الإدخال (Task Input)
-    const input = document.querySelector('.task-input'); 
-    if(input) input.placeholder = content.addJob;
-
+    // تغيير اتجاه الصفحة
     document.body.dir = content.dir;
+    
+    // حفظ اللغة في المتصفح
+    localStorage.setItem('selectedLang', lang);
 }
+
+// تشغيل اللغة المحفوظة عند فتح الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('selectedLang') || 'ar';
+    changeLang(savedLang);
+});
