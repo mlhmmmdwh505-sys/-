@@ -1,112 +1,53 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta name="verifywebsiteownership" content="tgf8hWSVWpGMEXVmzfc2SXcru"/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surgeon Dashboard | لوحة تحكم الجراح</title>
+    <title>Surgeon Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-   <div class="main-dashboard">
-    
-    <div class="lang-wrapper">
-        <button class="lang-btn" onclick="changeLang('en')">English</button>
-        <button class="lang-btn" onclick="changeLang('ar')">العربية</button>
-    </div>
 
-    <h1 class="lang-text" data-key="title">لوحة تحكم الجراح</h1>
-
-    <div class="dream-section">
-        <h2 class="lang-text" data-key="dream">⌛ حلم التخرج</h2>
+    <div class="main-dashboard">
+        <div class="lang-wrapper">
+            <button class="lang-btn" onclick="changeLang('en')">English</button>
+            <button class="lang-btn" onclick="changeLang('ar')">العربية</button>
         </div>
 
-    <div class="store-section">
-        <h3 class="lang-text" data-key="store">☕ متجر الطاقة (1د = 15ن)</h3>
-        <div class="store-buttons">
-            <button class="lang-text" data-key="btn5">5 د لـ 75ن</button>
-            <button class="lang-text" data-key="btn10">10 د لـ 150ن</button>
-            <button class="lang-text" data-key="btn15">15 د لـ 225ن</button>
-        </div>
-    </div>
+        <h1 class="lang-text" data-key="title">لوحة تحكم الجراح</h1>
 
-    <div class="controls">
-        <button class="lang-text" data-key="startBtn">ابدأ المهمة</button>
-        <button class="lang-text" data-key="resetBtn">إعادة ضبط</button>
-    </div>
-
-    <div class="input-section">
-        <input type="text" class="task-input lang-text-placeholder" data-key="inputPlaceholder" placeholder="أضف مهمة طبية جديدة...">
-        <button class="lang-text" data-key="confirmBtn">تأكيد</button>
-    </div>
-
-</div>
-    </div>
-</div>
-    <div class="glass-card">
-        <div class="mini-score">
-            <span>💰 <span id="userPoints">0</span></span>
-            <button onclick="resetPoints()" class="reset-mini" title="تصفير النقاط">🗑️</button>
-        </div>
-
-        <div class="date-tag" id="dateDisplay"></div>
-
-        <header>
-            <h1>لوحة تحكم الجراح 🩺</h1>
-            <div class="settings-bar">
-                <div class="input-group">
-                    <label>اللون</label>
-                    <input type="color" id="colorPicker" value="#6366f1">
+        <div class="dashboard-content">
+            <div class="timer-card">
+                <div id="timer" class="timer-display">25:00</div>
+                <div class="controls">
+                    <button class="lang-text btn-primary" data-key="startBtn">ابدأ المهمة</button>
+                    <button class="lang-text btn-secondary" data-key="resetBtn">إعادة ضبط</button>
                 </div>
-                <div class="input-group">
-                    <label>الدقائق</label>
-                    <input type="number" id="pomoMinutes" value="25">
-                </div>
-                <button onclick="applySettings()" class="btn-save">تأكيد 🩺</button>
             </div>
-        </header>
 
-        <div class="dashboard-grid">
-            <aside class="side-col">
-                <section class="info-card">
-                    <h3>⏳ حلم التخرج</h3>
-                    <div id="countdown" class="modern-timer">
-                        <div class="unit"><span id="years">00</span><label>سنة</label></div>
-                        <div class="unit"><span id="days">00</span><label>يوم</label></div>
-                        <div class="unit"><span id="hours">00</span><label>ساعة</label></div>
-                    </div>
-                </section>
+            <div class="dream-section">
+                <h2 class="lang-text" data-key="dream">⌛ حلم التخرج</h2>
+                <div class="countdown-numbers">
+                    <span>10 سنة</span> <span>71 يوم</span> <span>08 ساعة</span>
+                </div>
+            </div>
 
-                <section class="info-card store-card">
-                    <h3>☕ متجر الطاقة (1د = 15ن)</h3>
-                    <div class="store-grid">
-                        <div class="item" onclick="buyBreak(5)">5 د <small>75ن</small></div>
-                        <div class="item" onclick="buyBreak(10)">10 د <small>150ن</small></div>
-                        <div class="item" onclick="buyBreak(15)">15 د <small>225ن</small></div>
-                    </div>
-                </section>
-            </aside>
+            <div class="store-section">
+                <h3 class="lang-text" data-key="store">☕ متجر الطاقة (1د = 15ن)</h3>
+                <div class="store-buttons">
+                    <button class="lang-text" data-key="btn5">5 د لـ 75ن</button>
+                    <button class="lang-text" data-key="btn10">10 د لـ 150ن</button>
+                    <button class="lang-text" data-key="btn15">15 د لـ 225ن</button>
+                </div>
+            </div>
 
-            <main class="main-col">
-                <section class="info-card focus-card">
-                    <div id="pomoDisplay">25:00</div>
-                    <div class="pomo-actions">
-                        <button onclick="startPomo()" class="btn-main">ابدأ المهمة</button>
-                        <button onclick="resetPomo()">إعادة ضبط</button>
-                    </div>
-                </section>
-
-                <section class="info-card tasks-card">
-                    <div class="input-section">
-                        <input type="text" id="taskInput" placeholder="أضف مهمة طبية جديدة (عملية، مراجعة)...">
-                        <button onclick="addTask()" class="btn-add">+</button>
-                    </div>
-                    <ul id="taskList" class="custom-scroll"></ul>
-                </section>
-            </main>
+            <div class="input-section">
+                <input type="text" class="task-input" id="taskInput" placeholder="أضف مهمة طبية جديدة...">
+                <button class="lang-text btn-confirm" data-key="confirmBtn">تأكيد</button>
+            </div>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
