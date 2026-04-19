@@ -79,43 +79,46 @@ window.onload = function() {
     };
     document.getElementById('dateDisplay').innerText = new Date().toLocaleDateString('ar-EG', { weekday: 'long', day: 'numeric', month: 'long' });
 };
-// دالة تغيير اللغة
-function changeLang(lang) {
-    alert("تم الضغط على زر اللغة: " + lang); // هذا التنبيه سيؤكد لنا أن الزر يعمل
-    
-    if (lang === 'en') {
-        document.body.dir = "ltr";
-        // ابحث عن العنوان وغيره يدوياً للتجربة
-        document.querySelector('h1').innerText = "Surgeon Dashboard";
-    } else {
-        document.body.dir = "rtl";
-        document.querySelector('h1').innerText = "لوحة تحكم الجراح";
-    }
-}
 const translations = {
     ar: {
         title: "لوحة تحكم الجراح",
-        dream: "حلم التخرج",
+        dream: "⌛ حلم التخرج",
+        store: "☕ متجر الطاقة (1د = 15ن)",
+        btn5: "5 د لـ 75ن",
+        btn10: "10 د لـ 150ن",
+        btn15: "15 د لـ 225ن",
+        startBtn: "ابدأ المهمة",
+        resetBtn: "إعادة ضبط",
+        confirmBtn: "تأكيد",
+        inputPlaceholder: "أضف مهمة طبية جديدة...",
         dir: "rtl"
     },
     en: {
         title: "Surgeon Dashboard",
-        dream: "Graduation Dream",
+        dream: "⌛ Graduation Dream",
+        store: "☕ Energy Store (1m = 15p)",
+        btn5: "5m for 75p",
+        btn10: "10m for 150p",
+        btn15: "15m for 225p",
+        startBtn: "Start Task",
+        resetBtn: "Reset",
+        confirmBtn: "Confirm",
+        inputPlaceholder: "Add new medical task...",
         dir: "ltr"
     }
 };
 
 function changeLang(lang) {
     const content = translations[lang];
-
-    // 1. تغيير اتجاه الصفحة (هذا الجزء شغال عندك)
     document.body.dir = content.dir;
 
-    // 2. تغيير النصوص (هذا الجزء الذي سنصلحه)
+    // تغيير النصوص العادية
     document.querySelectorAll('.lang-text').forEach(el => {
-        const key = el.getAttribute('data-key'); // بيقرأ الكلمة السرية (title أو dream)
-        if (content[key]) {
-            el.innerText = content[key]; // بيبدل النص بناءً على اللغة
-        }
+        const key = el.getAttribute('data-key');
+        if (content[key]) el.innerText = content[key];
     });
+
+    // تغيير الـ Placeholder لمربع الكتابة
+    const input = document.querySelector('.task-input');
+    if (input) input.placeholder = content.inputPlaceholder;
 }
