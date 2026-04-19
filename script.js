@@ -92,3 +92,30 @@ function changeLang(lang) {
         document.querySelector('h1').innerText = "لوحة تحكم الجراح";
     }
 }
+const translations = {
+    ar: {
+        title: "لوحة تحكم الجراح",
+        dream: "حلم التخرج",
+        dir: "rtl"
+    },
+    en: {
+        title: "Surgeon Dashboard",
+        dream: "Graduation Dream",
+        dir: "ltr"
+    }
+};
+
+function changeLang(lang) {
+    const content = translations[lang];
+
+    // 1. تغيير اتجاه الصفحة (هذا الجزء شغال عندك)
+    document.body.dir = content.dir;
+
+    // 2. تغيير النصوص (هذا الجزء الذي سنصلحه)
+    document.querySelectorAll('.lang-text').forEach(el => {
+        const key = el.getAttribute('data-key'); // بيقرأ الكلمة السرية (title أو dream)
+        if (content[key]) {
+            el.innerText = content[key]; // بيبدل النص بناءً على اللغة
+        }
+    });
+}
