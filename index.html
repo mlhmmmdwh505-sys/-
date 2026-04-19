@@ -2,11 +2,11 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>لوحة تحكم الجراح</title>
+<title>Dashboard Pro</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;600&display=swap');
-
 * {
     margin: 0;
     padding: 0;
@@ -15,42 +15,23 @@
 }
 
 body {
-    background: radial-gradient(circle at top, #1e293b, #020617);
+    background: radial-gradient(circle at top, #0f172a, #020617);
     color: white;
     direction: rtl;
-    min-height: 100vh;
-    overflow-x: hidden;
 }
 
-/* خلفية متحركة */
-body::before {
-    content: "";
-    position: fixed;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, #6366f1, #0ea5e9, #9333ea);
-    animation: moveBg 10s linear infinite;
-    opacity: 0.08;
-}
-
-@keyframes moveBg {
-    0% { transform: translate(0,0); }
-    100% { transform: translate(-50%, -50%); }
-}
-
+/* Layout */
 .container {
-    padding: 30px;
-    position: relative;
-    z-index: 2;
+    padding: 40px;
 }
 
-h1 {
+.header {
     text-align: center;
     margin-bottom: 30px;
-    font-size: 32px;
+    font-size: 28px;
 }
 
-/* إعدادات */
+/* Controls */
 .controls {
     display: flex;
     justify-content: center;
@@ -58,80 +39,83 @@ h1 {
     margin-bottom: 30px;
 }
 
-input, button {
+input {
+    background: rgba(255,255,255,0.08);
+    border: none;
     padding: 10px;
     border-radius: 12px;
-    border: none;
-}
-
-input {
-    background: rgba(255,255,255,0.1);
     color: white;
 }
 
 button {
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: none;
     background: linear-gradient(45deg,#6366f1,#4f46e5);
     color: white;
     cursor: pointer;
     transition: 0.3s;
+    position: relative;
+    overflow: hidden;
 }
 
 button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px #6366f1;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(99,102,241,0.4);
 }
 
-/* Grid */
+/* Cards */
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
-/* Card */
 .card {
     background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(15px);
-    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
     padding: 30px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
-    transition: 0.3s;
+    box-shadow: inset 0 0 1px rgba(255,255,255,0.2),
+                0 20px 40px rgba(0,0,0,0.6);
+    transition: 0.4s;
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px) scale(1.01);
 }
 
 /* Timer */
 .timer {
-    font-size: 70px;
+    font-size: 72px;
     text-align: center;
     color: #6366f1;
     margin: 20px 0;
-    transition: 0.3s;
+    letter-spacing: 2px;
 }
 
-/* Buttons */
+/* Actions */
 .actions {
     text-align: center;
 }
 
 /* Graduation */
-.boxes {
+.stats {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-top: 20px;
 }
 
-.box {
-    background: rgba(255,255,255,0.08);
+.stat {
+    background: rgba(255,255,255,0.05);
     padding: 15px;
     border-radius: 15px;
+    width: 30%;
     text-align: center;
     transition: 0.3s;
 }
 
-.box:hover {
+.stat:hover {
     background: #6366f1;
 }
 
@@ -144,9 +128,9 @@ button:hover {
 
 .energy div {
     flex: 1;
-    background: rgba(99,102,241,0.2);
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 12px;
+    background: rgba(99,102,241,0.2);
     text-align: center;
     transition: 0.3s;
 }
@@ -154,20 +138,37 @@ button:hover {
 .energy div:hover {
     background: #6366f1;
 }
-</style>
 
+/* Smooth appear */
+.card {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fade 0.8s forwards;
+}
+
+.card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+@keyframes fade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>🩺 لوحة تحكم الجراح</h1>
+<div class="header">🩺 لوحة تحكم الجراح</div>
 
 <div class="controls">
-    <input type="number" id="minutes" value="25">
+    <input type="number" id="min" value="25">
     <input type="color" id="color" value="#6366f1">
-    <button onclick="applySettings()">تأكيد</button>
+    <button onclick="apply()">تأكيد</button>
 </div>
 
 <div class="grid">
@@ -176,8 +177,8 @@ button:hover {
     <div class="card">
         <div class="timer" id="timer">25:00</div>
         <div class="actions">
-            <button onclick="startTimer()">ابدأ</button>
-            <button onclick="resetTimer()">إعادة</button>
+            <button onclick="start()">ابدأ</button>
+            <button onclick="reset()">إعادة</button>
         </div>
     </div>
 
@@ -185,27 +186,17 @@ button:hover {
     <div class="card">
         <h3>🎓 حلم التخرج</h3>
 
-        <div class="boxes">
-            <div class="box">
-                <h2 id="years">0</h2>
-                <p>سنة</p>
-            </div>
-            <div class="box">
-                <h2 id="days">0</h2>
-                <p>يوم</p>
-            </div>
-            <div class="box">
-                <h2 id="hours">0</h2>
-                <p>ساعة</p>
-            </div>
+        <div class="stats">
+            <div class="stat"><h2 id="y">0</h2><p>سنة</p></div>
+            <div class="stat"><h2 id="d">0</h2><p>يوم</p></div>
+            <div class="stat"><h2 id="h">0</h2><p>ساعة</p></div>
         </div>
 
         <div class="energy">
-            <div>5 دق = 75⚡</div>
-            <div>10 دق = 150⚡</div>
-            <div>15 دق = 225⚡</div>
+            <div>5د = 75⚡</div>
+            <div>10د = 150⚡</div>
+            <div>15د = 225⚡</div>
         </div>
-
     </div>
 
 </div>
@@ -214,59 +205,58 @@ button:hover {
 
 <script>
 let time = 1500;
-let interval;
+let run;
 
-function updateTimer() {
-    let m = Math.floor(time / 60);
-    let s = time % 60;
+function update() {
+    let m = Math.floor(time/60);
+    let s = time%60;
     document.getElementById("timer").innerText =
-        `${m}:${s < 10 ? "0" : ""}${s}`;
+        `${m}:${s<10?"0":""}${s}`;
 }
 
-function startTimer() {
-    if (interval) return;
-
-    interval = setInterval(() => {
-        if (time > 0) {
+function start() {
+    if(run) return;
+    run = setInterval(()=>{
+        if(time>0){
             time--;
-            updateTimer();
+            update();
         } else {
-            clearInterval(interval);
-            alert("🔥 خلص الوقت");
+            clearInterval(run);
         }
-    }, 1000);
+    },1000);
 }
 
-function resetTimer() {
-    clearInterval(interval);
-    interval = null;
-    time = document.getElementById("minutes").value * 60;
-    updateTimer();
+function reset(){
+    clearInterval(run);
+    run = null;
+    time = document.getElementById("min").value*60;
+    update();
 }
 
-function applySettings() {
-    let color = document.getElementById("color").value;
-    document.querySelector(".timer").style.color = color;
+function apply(){
+    document.querySelector(".timer").style.color =
+        document.getElementById("color").value;
 }
 
-// عداد التخرج
+// countdown
 let target = new Date("2036-01-01");
 
-function updateCountdown() {
-    let now = new Date();
-    let diff = target - now;
+setInterval(()=>{
+    let diff = target - new Date();
+    let y = Math.floor(diff/(1000*60*60*24*365));
+    let d = Math.floor(diff/(1000*60*60*24))%365;
+    let h = Math.floor(diff/(1000*60*60))%24;
 
-    let y = Math.floor(diff / (1000*60*60*24*365));
-    let d = Math.floor(diff / (1000*60*60*24)) % 365;
-    let h = Math.floor(diff / (1000*60*60)) % 24;
+    yElem = document.getElementById("y");
+    dElem = document.getElementById("d");
+    hElem = document.getElementById("h");
 
-    document.getElementById("years").innerText = y;
-    document.getElementById("days").innerText = d;
-    document.getElementById("hours").innerText = h;
-}
+    yElem.innerText = y;
+    dElem.innerText = d;
+    hElem.innerText = h;
+},1000);
 
-setInterval(updateCountdown, 1000);
-updateTimer();
+update();
 </script>
 
 </body>
